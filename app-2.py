@@ -44,9 +44,22 @@ try:
                 st.dataframe(filtered_df[["Name", "Synonym", "Price"]])
                 st.success(f"💰 Total Price after removal: {total:.2f}")
 
- 
+                # Get normalized user inputs
+                entries = [entry.strip().lower() for entry in input_text.split(",") if entry.strip()]
 
-                
+                # Get all matched synonyms and names
+                matched_terms = set()
+                for _, row in matched_df.iterrows():
+                    matched_terms.add(row["Name"].strip().lower())
+                    matched_terms.update([s.strip().lower() for s in str(row["Synonym"]).split(",")])
+
+                # Find unmatched entries
+                unmatched = [e for e in entries if not any(e in matched for matched in matched_terms)]
+
+                if unmatched:
+                    st.markdown("### ⚠️ Nicht gefundene Eingaben")
+                    st.warning(f"Die folgenden Begriffe konnten nicht zugeordnet werden: {', '.join(unmatched)}")
+
                 email_text = f"""Guten Tag,
 
 Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf {total:.2f} CHF (Angaben ohne Gewähr).
