@@ -14,8 +14,8 @@ use_default = False
 try:
     if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
-        st.success("Custom file loaded.")
-        email_text = f"""
+            st.success("Custom file loaded.")
+            email_text = f"""
 Guten Tag,
 
 Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf {total:.2f} CHF (Angaben ohne Gewähr).
