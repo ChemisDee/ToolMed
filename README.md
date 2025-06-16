@@ -1,27 +1,27 @@
-# 💊 Excel Price Summation Tool
+# 💊 Excel Price Summation Tool (with Fuzzy Matching and Row Removal)
 
-A web app to calculate total prices based on medical test names or synonyms from an Excel sheet.
+This Streamlit web app allows you to calculate total prices from an Excel file containing medical test entries.
 
 ## 📂 Excel File Requirements
-Your Excel file must contain **three columns**:
+Your Excel file must contain these columns:
 - `Name`
-- `Synonym` (can be empty)
+- `Synonym` (optional but recommended)
 - `Price` (numeric)
 
 ## 🔍 Features
-- Upload `.xlsx` or `.xls` file
-- Fuzzy matching (case-insensitive, typo-tolerant)
-- Enter names or synonyms (comma-separated)
-- Outputs matched rows and total price
+- Fuzzy matching on both `Name` and `Synonym`
+- Case-insensitive and typo-tolerant
+- Select and remove false positives before final price calculation
 
 ## 🚀 Run Locally
+
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
 ## 🌍 Host Online
-You can deploy this app for free via [Streamlit Cloud](https://streamlit.io/cloud).
+Deploy on [Streamlit Cloud](https://streamlit.io/cloud):
 
-1. Push `app.py`, `requirements.txt`, and `README.md` to a GitHub repo
+1. Push `app.py`, `matcher.py`, `requirements.txt`, and `README.md` to a GitHub repo
 2. Deploy via Streamlit Cloud using that repo
