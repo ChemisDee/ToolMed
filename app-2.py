@@ -37,3 +37,15 @@ if uploaded_file:
 
     except Exception as e:
         st.error(f"Error reading Excel file: {e}")
+
+DEFAULT_FILE = "DefaultPreise.xlsx"
+
+# Try to use uploaded file, otherwise fall back to default
+uploaded_file = st.file_uploader("Upload Excel file", type=["xlsx", "xls"])
+
+if uploaded_file is not None:
+    df = pd.read_excel(uploaded_file)
+    st.success("Custom file loaded.")
+else:
+    df = pd.read_excel(DEFAULT_FILE)
+    st.info("Using built-in price list from repository.")
