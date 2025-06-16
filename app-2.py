@@ -43,6 +43,15 @@ try:
                 st.write("### ✅ Final Selected Entries")
                 st.dataframe(filtered_df[["Name", "Synonym", "Price"]])
                 st.success(f"💰 Total Price after removal: {total:.2f}")
+                email_text = f"""Guten Tag,
+
+Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf {total:.2f} CHF (Angaben ohne Gewähr).
+
+Freundliche Grüsse,
+"""
+
+                st.markdown("### ✉️ Vorschlag für Antwort-E-Mail")
+                st.text_area("📋 Antwort kopieren:", value=email_text, height=150)
 
 except Exception as e:
     st.error(f"Error reading Excel file: {e}")
