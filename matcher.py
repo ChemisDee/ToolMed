@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from matcher import get_fuzzy_matches
 
 st.set_page_config(page_title="Excel Price Summation", layout="centered")
 st.title("📊 Excel Price Summation Tool")
