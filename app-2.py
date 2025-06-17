@@ -61,7 +61,7 @@ try:
 
                 email_text = f"""Guten Tag,
 
-Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf {total:.2f} CHF (Angaben ohne Gewähr).
+Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf **{total:.2f}** CHF (Angaben ohne Gewähr).
 
 Freundliche Grüsse,
 """
