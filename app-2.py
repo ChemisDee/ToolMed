@@ -40,7 +40,8 @@ try:
 
                 st.write("### ✅ Final Selected Entries")
                 st.dataframe(filtered_df[["Name", "Synonym", "Price"]])
-                st.success(f"💰 Total Price after removal: {total:.2f}")
+                st.markdown(f"💰 **Total Price after removal:** <span style='font-weight:bold;color:green'>{total:.2f} CHF</span>", unsafe_allow_html=True)
+
 
                 # Get normalized user inputs
                 entries = [entry.strip().lower() for entry in input_text.split(",") if entry.strip()]
