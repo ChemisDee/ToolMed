@@ -14,11 +14,11 @@ use_default = False
 try:
     if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
-        st.success("Custom file loaded.")
+        st.success("Eigene Preisliste wird verwendet.")
  
     else:
         df = pd.read_excel(DEFAULT_FILE)
-        st.info("Using built-in price list.")
+        st.info("Standardpreisliste wird verwendet.")
         use_default = True
 
     if not {'Name', 'Synonym', 'Price'}.issubset(df.columns):
