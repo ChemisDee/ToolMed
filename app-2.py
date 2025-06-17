@@ -40,7 +40,7 @@ try:
 
                 st.write("### ✅ Final Selected Entries")
                 st.dataframe(filtered_df[["Name", "Synonym", "Price"]])
-                st.markdown(f"💰 **Total Price after removal:** <span style='font-weight:bold;color:green'>{total:.2f} CHF</span>", unsafe_allow_html=True)
+                st.success(f"💰 Total Price after removal: {total:.2f}")
 
 
                 # Get normalized user inputs
