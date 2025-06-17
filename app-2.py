@@ -24,7 +24,7 @@ try:
     if not {'Name', 'Synonym', 'Price'}.issubset(df.columns):
         st.error("Excel must contain 'Name', 'Synonym', and 'Price' columns.")
     else:
-        input_text = st.text_input("Analysekürzel oder -namen eingeben und durch Kommata separieren (bspw. TSH, PSA ...):")
+        input_text = st.text_input("Analysekürzel oder -namen eingeben und durch Kommata separieren (bspw. TSH, Vitamin D, ...):")
 
         if input_text:
             matched_df = get_fuzzy_matches(df, input_text)
