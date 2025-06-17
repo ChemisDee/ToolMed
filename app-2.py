@@ -24,8 +24,6 @@ try:
     if not {'Name', 'Synonym', 'Price'}.issubset(df.columns):
         st.error("Excel must contain 'Name', 'Synonym', and 'Price' columns.")
     else:
-        st.write("Preview:", df.head())
-
         input_text = st.text_input("Enter names or synonyms (comma-separated):")
 
         if input_text:
