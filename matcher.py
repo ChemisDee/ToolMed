@@ -4,22 +4,32 @@ from rapidfuzz import fuzz
 def normalize(text):
     return str(text).strip().lower() if pd.notna(text) else ""
 
-def fuzzy_match(needle, haystack_list, threshold=85):
-    return any(fuzz.ratio(needle, item) >= threshold for item in haystack_list)
+def tokenize_synonyms(syn_string):
+    if pd.isna(syn_string):
+        return []
+    return [normalize(token) for token in str(syn_string).split(",")]
+
+def is_smart_match(entry, candidates, threshold=93):
+    for candidate in candidates:
+        if entry == candidate:
+            return True  # exact match
+        if entry in candidate.split():  # full token/word match
+            return True
+        if fuzz.ratio(entry, candidate) >= threshold and abs(len(entry) - len(candidate)) <= 2:
+            return True  # fuzzy match with tight length constraint
+    return False
 
 def get_fuzzy_matches(df, input_text):
     df = df.copy()
     df["Name_norm"] = df["Name"].apply(normalize)
-
-    # Split comma-separated synonyms into a list of normalized entries
-    df["Synonyms_norm"] = df["Synonym"].apply(lambda x: [normalize(s) for s in str(x).split(",")] if pd.notna(x) else [])
+    df["Synonyms_norm"] = df["Synonym"].apply(tokenize_synonyms)
 
     entries = [normalize(e) for e in input_text.split(",") if e.strip()]
     matched_rows = []
 
     for _, row in df.iterrows():
         haystack = [row["Name_norm"]] + row["Synonyms_norm"]
-        if any(fuzzy_match(entry, haystack) for entry in entries):
+        if any(is_smart_match(entry, haystack) for entry in entries):
             matched_rows.append(row)
 
     return pd.DataFrame(matched_rows)
