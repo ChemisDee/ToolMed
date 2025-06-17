@@ -1,38 +1,68 @@
+import streamlit as st
 import pandas as pd
-from rapidfuzz import fuzz
+from matcher import get_fuzzy_matches
 
-def normalize(text):
-    return str(text).strip().lower() if pd.notna(text) else ""
+st.set_page_config(page_title="Excel Price Summation", layout="centered")
+st.title("📊 Excel Price Summation Tool")
 
-def tokenize_synonyms(syn_string):
-    if pd.isna(syn_string):
-        return []
-    return [normalize(token) for token in str(syn_string).split(",")]
+DEFAULT_FILE = "DefaultPreise.xlsx"
 
-def is_precise_match(entry, candidates, threshold=95):
-    for candidate in candidates:
-        if entry == candidate:
-            return True  # exakte Übereinstimmung
-        if entry in candidate.split():  # ganzes Wort enthalten
-            return True
-        if (
-            fuzz.ratio(entry, candidate) >= threshold and
-            abs(len(entry) - len(candidate)) <= 1
-        ):
-            return True  # nur sehr ähnliche, fast gleich lange Treffer
-    return False
+# Dateiupload oder Fallback
+uploaded_file = st.file_uploader("Upload Excel file", type=["xlsx", "xls"])
+use_default = False
 
-def get_fuzzy_matches(df, input_text):
-    df = df.copy()
-    df["Name_norm"] = df["Name"].apply(normalize)
-    df["Synonyms_norm"] = df["Synonym"].apply(tokenize_synonyms)
+try:
+    if uploaded_file is not None:
+        df = pd.read_excel(uploaded_file)
+        st.success("Custom file loaded.")
+    else:
+        df = pd.read_excel(DEFAULT_FILE)
+        st.info("Using built-in price list.")
+        use_default = True
 
-    entries = [normalize(e) for e in input_text.split(",") if e.strip()]
-    matched_rows = []
+    # Spaltenprüfung
+    if not {'Name', 'Synonym', 'Price'}.issubset(df.columns):
+        st.error("Excel must contain 'Name', 'Synonym', and 'Price' columns.")
+    else:
+        input_text = st.text_input("Enter names or synonyms (comma-separated):")
 
-    for _, row in df.iterrows():
-        haystack = [row["Name_norm"]] + row["Synonyms_norm"]
-        if any(is_precise_match(entry, haystack) for entry in entries):
-            matched_rows.append(row)
+        if input_text:
+            matched_df = get_fuzzy_matches(df, input_text)
 
-    return pd.DataFrame(matched_rows)
+            if matched_df.empty:
+                st.warning("No matching entries found.")
+            else:
+                display_labels = matched_df["Name"] + " (" + matched_df["Synonym"] + ")"
+                to_remove = st.multiselect("❌ Remove entries you didn't mean:", display_labels)
+
+                filtered_df = matched_df[~display_labels.isin(to_remove)]
+                total = filtered_df["Price"].sum()
+
+                st.write("### ✅ Final Selected Entries")
+                st.dataframe(filtered_df[["Name", "Synonym", "Price"]])
+                st.success(f"💰 Total Price after removal: {total:.2f} CHF")
+
+                # Unmatched-Eingaben anzeigen
+                entries = [entry.strip().lower() for entry in input_text.split(",") if entry.strip()]
+                matched_terms = set()
+                for _, row in matched_df.iterrows():
+                    matched_terms.add(row["Name"].strip().lower())
+                    matched_terms.update([s.strip().lower() for s in str(row["Synonym"]).split(",")])
+                unmatched = [e for e in entries if not any(e in matched for matched in matched_terms)]
+                if unmatched:
+                    st.markdown("### ⚠️ Nicht gefundene Eingaben")
+                    st.warning(f"Die folgenden Begriffe konnten nicht zugeordnet werden: {', '.join(unmatched)}")
+
+                # Vorschlag für Antwort-E-Mail
+                email_text = f"""Guten Tag,
+
+Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf {total:.2f} CHF (Angaben ohne Gewähr).
+
+Freundliche Grüsse,
+"""
+                st.markdown("### ✉️ Vorschlag für Antwort-E-Mail")
+                st.text_area("📋 Antwort kopieren:", value=email_text, height=150)
+
+except Exception as e:
+    st.error(f"Fehler beim Einlesen der Excel-Datei: {e}")
+
