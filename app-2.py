@@ -77,6 +77,7 @@ Ich hoffe, Ihnen mit diesen Informationen weitergeholfen zu haben und freue mich
 
 Freundliche Grüsse,
 
+*** ENGLISH VERSION ***
 Thank you very much for your inquiry.
 
 Our pricing is based on the Swiss Federal Office of Public Health's list of analyses, where 1 tax point (TP) corresponds to CHF 1.
