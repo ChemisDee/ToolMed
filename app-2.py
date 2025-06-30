@@ -61,17 +61,18 @@ try:
 
                 email_text = f"""Vielen Dank für Ihre Anfrage,
 
-Unsere Preise richten sich nach der Analysenliste des Bundesamts für Gesundheit (BAG), wobei 1 Taxpunkt (TP) einem Betrag von 1 CHF entspricht.
-Die aktuelle Analysenliste finden Sie unter folgendem Link:
-https://www.bag.admin.ch/bag/de/home/versicherungen/krankenversicherung/krankenversicherung-leistungen-tarife/Analysenliste.html
-
-Bitte beachten Sie, dass die Kosten für Laboruntersuchungen nur bei ärztlicher Verordnung von der Krankenkasse übernommen werden.
-Die voraussichtlichen Kosten belaufen sich auf {total:.2f} CHF (alle Angaben ohne Gewähr).
+Die voraussichtlichen Kosten für die von Ihnen gewünschten Analysen belaufen sich auf {total:.2f} CHF (alle Angaben ohne Gewähr).
 
 Für die Blutentnahme können Sie ohne Voranmeldung in unser Drop-In-Ambulatorium kommen. Unsere Öffnungszeiten sind:
 
 Montag bis Freitag: 07:30 – 18:00 Uhr
 Samstag: 07:30 – 11:30 Uhr
+
+Unsere Preise richten sich nach der Analysenliste des Bundesamts für Gesundheit (BAG), wobei 1 Taxpunkt (TP) einem Betrag von 1 CHF entspricht.
+Die aktuelle Analysenliste finden Sie unter folgendem Link:
+https://www.bag.admin.ch/bag/de/home/versicherungen/krankenversicherung/krankenversicherung-leistungen-tarife/Analysenliste.html
+
+Bitte beachten Sie, dass die Kosten für Laboruntersuchungen nur bei ärztlicher Verordnung von der Krankenkasse übernommen werden.
 
 Ich hoffe, Ihnen mit diesen Informationen weitergeholfen zu haben und freue mich, Sie bald bei uns begrüssen zu dürfen.
 
@@ -80,17 +81,18 @@ Freundliche Grüsse,
 *** ENGLISH VERSION ***
 Thank you very much for your inquiry.
 
-Our pricing is based on the Swiss Federal Office of Public Health's list of analyses, where 1 tax point (TP) corresponds to CHF 1.
-You can find the current list here:
-https://www.bag.admin.ch/bag/en/home/versicherungen/krankenversicherung/krankenversicherung-leistungen-tarife/Analysenliste.html
-
-Please note that laboratory tests are only covered by health insurance with a valid medical prescription.
 The estimated costs will be {total:.2f} CHF (all information without guarantee).
 
 You are welcome to come to our drop-in ambulatory unit for the blood draw—no appointment is necessary. Our opening hours are:
 
 Monday to Friday: 07:30 am – 6:00 pm
 Saturday: 07:30 am – 11:30 am
+
+Our pricing is based on the Swiss Federal Office of Public Health's list of analyses, where 1 tax point (TP) corresponds to CHF 1.
+You can find the current list here:
+https://www.bag.admin.ch/bag/en/home/versicherungen/krankenversicherung/krankenversicherung-leistungen-tarife/Analysenliste.html
+
+Please note that laboratory tests are only covered by health insurance with a valid medical prescription.
 
 I hope this information is helpful, and we look forward to welcoming you soon.
 
