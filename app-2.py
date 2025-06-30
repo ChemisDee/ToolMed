@@ -59,11 +59,43 @@ try:
                     st.markdown("### ⚠️ Nicht gefundene Eingaben")
                     st.warning(f"Die folgenden Begriffe konnten nicht zugeordnet werden: {', '.join(unmatched)}")
 
-                email_text = f"""Guten Tag,
+                email_text = f"""Vielen Dank für Ihre Anfrage,
 
-Vielen Dank für Ihre Anfrage. Die Kosten für die von Ihnen gewünschten Analysen belaufen sich total auf {total:.2f} CHF (Angaben ohne Gewähr).
+Unsere Preise richten sich nach der Analysenliste des Bundesamts für Gesundheit (BAG), wobei 1 Taxpunkt (TP) einem Betrag von 1 CHF entspricht.
+Die aktuelle Analysenliste finden Sie unter folgendem Link:
+https://www.bag.admin.ch/bag/de/home/versicherungen/krankenversicherung/krankenversicherung-leistungen-tarife/Analysenliste.html
+
+Bitte beachten Sie, dass die Kosten für Laboruntersuchungen nur bei ärztlicher Verordnung von der Krankenkasse übernommen werden.
+Die voraussichtlichen Kosten Ihrer Untersuchungen habe ich Ihnen im Anhang/weiter unten kurz zusammengestellt (alle Angaben ohne Gewähr).
+
+Für die Blutentnahme können Sie ohne Voranmeldung in unser Drop-In-Ambulatorium kommen. Unsere Öffnungszeiten sind:
+
+Montag bis Freitag: 07:30 – 18:00 Uhr
+Samstag: 07:30 – 11:30 Uhr
+
+Ich hoffe, Ihnen mit diesen Informationen weitergeholfen zu haben und freue mich, Sie bald bei uns begrüssen zu dürfen.
 
 Freundliche Grüsse,
+
+Thank you very much for your inquiry.
+
+Our pricing is based on the Swiss Federal Office of Public Health's list of analyses, where 1 tax point (TP) corresponds to CHF 1.
+You can find the current list here:
+https://www.bag.admin.ch/bag/en/home/versicherungen/krankenversicherung/krankenversicherung-leistungen-tarife/Analysenliste.html
+
+Please note that laboratory tests are only covered by health insurance with a valid medical prescription.
+I have briefly outlined the estimated costs for your tests below/attached (all information without guarantee).
+
+You are welcome to come to our drop-in ambulatory unit for the blood draw—no appointment is necessary. Our opening hours are:
+
+Monday to Friday: 07:30 am – 6:00 pm
+Saturday: 07:30 am – 11:30 am
+
+I hope this information is helpful, and we look forward to welcoming you soon.
+
+Kind regards,
+[Your Name]
+
 """
 
                 st.markdown("### ✉️ Vorschlag für Antwort-E-Mail")
