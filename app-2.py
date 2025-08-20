@@ -40,7 +40,7 @@ try:
 
                 st.write("### ✅ Final Selected Entries")
                 st.dataframe(filtered_df[["Name", "Synonym", "Price"]],
-                            column_confic={
+                            column_config={
                                 "Price": st.column_config.NumberColumn("Price (CHF)", format="%.2f")
                 }
                 )
