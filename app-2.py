@@ -39,7 +39,11 @@ try:
                 total = filtered_df["Price"].sum()
 
                 st.write("### ✅ Final Selected Entries")
-                st.dataframe(filtered_df[["Name", "Synonym", "Price"]])
+                st.dataframe(filtered_df[["Name", "Synonym", "Price"]]
+                            column_confic={
+                                "Price": st.column_config.NumberColumn("Price (CHF)", format="%.2f")
+                }
+                )
                 st.success(f"💰 Total Price after removal: {total:.2f}")
 
 
